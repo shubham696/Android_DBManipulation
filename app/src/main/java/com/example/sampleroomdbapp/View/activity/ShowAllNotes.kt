@@ -3,6 +3,7 @@ package com.example.sampleroomdbapp.View.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +17,7 @@ import com.example.sampleroomdbapp.AppDatabase
 import com.example.sampleroomdbapp.MainApplication
 import com.example.sampleroomdbapp.Model.SampleNote
 import com.example.sampleroomdbapp.R
+import com.example.sampleroomdbapp.Util.HelperUtility
 import com.example.sampleroomdbapp.View.adapter.SavedNotesAdapter
 import com.example.sampleroomdbapp.View.fragment.AddNoteFragment
 import com.example.sampleroomdbapp.ViewModel.Factory.MyViewModelFactory
@@ -47,6 +49,9 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
                 Log.v(TAG,"livedata works")
                 emptyMessage.visibility = View.GONE
                 adapter.setData(notes as List<SampleNote?>)
+            }else{
+                emptyMessage.visibility = View.VISIBLE
+                listOfNotesRecyclerView.visibility = View.GONE
             }
         })
 
@@ -99,9 +104,10 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
         }
     }
 
-    override fun insertNoteToDB(note: SampleNote) {
+    override fun insertNoteToDB(note: SampleNote, editText: EditText) {
         todoViewModel.insertNotes(note)
         floatingActionButton.visibility = View.VISIBLE
+        HelperUtility(this).hideKeyBoard(editText)
         supportFragmentManager.popBackStackImmediate()
     }
 }

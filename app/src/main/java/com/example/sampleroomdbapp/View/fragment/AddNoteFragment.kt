@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sampleroomdbapp.Model.SampleNote
 import com.example.sampleroomdbapp.R
+import com.example.sampleroomdbapp.Util.HelperUtility
 import java.util.*
 
 
@@ -40,7 +41,7 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
     }
 
     interface AddNoteToDb{
-        fun insertNoteToDB(note: SampleNote)
+        fun insertNoteToDB(note: SampleNote, editText: EditText)
     }
 
     override fun onClick(v: View?) {
@@ -48,7 +49,7 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
             R.id.but_save->{
                 if(!title!!.text.isNullOrEmpty() && !content!!.text.isNullOrEmpty()){
                     sampleNote = SampleNote(getRandomHexadecimalNumber(), content!!.text.toString(),title!!.text.toString())
-                    addNoteToDb.insertNoteToDB(sampleNote!!)
+                    addNoteToDb.insertNoteToDB(sampleNote!!, content!!)
                 }else{
                     Toast.makeText(this.context,"Please Enter Title/Content",Toast.LENGTH_SHORT).show()
                 }
