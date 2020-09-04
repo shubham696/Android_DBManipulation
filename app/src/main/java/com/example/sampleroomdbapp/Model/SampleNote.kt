@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Todo_Note")
-data class SampleNote(@PrimaryKey val note_id: Int, @ColumnInfo(name = "note_content") val content: String, val title: String)
+data class SampleNote(@PrimaryKey  val note_id: String, @ColumnInfo(name = "note_content") val content: String, val title: String)
 //{
 
 //    @PrimaryKey

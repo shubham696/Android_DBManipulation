@@ -34,8 +34,4 @@ class MainApplication : Application(), LifecycleObserver {
         return appDatabase!!
     }
 
-    fun cleanUpDb(){
-//        appDatabase = null
-    }
-
 }
