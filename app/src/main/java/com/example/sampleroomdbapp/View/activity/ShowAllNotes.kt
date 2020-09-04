@@ -26,7 +26,7 @@ import com.example.sampleroomdbapp.database.dao.DatabaseHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapter.onLongClick, AddNoteFragment.AddNoteToDb{
+class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapter.onLongClick, AddNoteFragment.AddNoteToDb, AddNoteFragment.OnBackPressed{
 
     private val TAG = "showaddednotes"
     private lateinit var floatingActionButton: FloatingActionButton
@@ -81,6 +81,12 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
         ).get(ShowNoteViewModel::class.java)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(floatingActionButton.visibility == View.GONE)
+            floatingActionButton.visibility = View.VISIBLE
+    }
+
 
 
     override fun onClick(v: View?) {
@@ -88,11 +94,10 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
             R.id.fab->{
                 addShowFragment.visibility = View.VISIBLE
                 floatingActionButton.visibility = View.GONE
-                val addNotesActivity =
-                    AddNoteFragment()
+                val addNotesActivity = AddNoteFragment()
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.addNoteFragment, addNotesActivity)
-                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.replace(R.id.addNoteFragment, addNotesActivity, "addNotes")
+                fragmentTransaction.addToBackStack("addNotes")
                 fragmentTransaction.commit()
             }
         }
@@ -108,6 +113,11 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
         todoViewModel.insertNotes(note)
         floatingActionButton.visibility = View.VISIBLE
         HelperUtility(this).hideKeyBoard(editText)
+        supportFragmentManager.popBackStackImmediate()
+    }
+
+    override fun onBack() {
+        floatingActionButton.visibility = View.VISIBLE
         supportFragmentManager.popBackStackImmediate()
     }
 }

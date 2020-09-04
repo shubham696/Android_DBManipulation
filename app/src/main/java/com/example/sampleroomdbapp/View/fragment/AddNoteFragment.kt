@@ -1,6 +1,7 @@
 package com.example.sampleroomdbapp.View.fragment
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sampleroomdbapp.Model.SampleNote
 import com.example.sampleroomdbapp.R
-import com.example.sampleroomdbapp.Util.HelperUtility
 import java.util.*
 
 
@@ -21,6 +21,7 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
     private var sampleNote: SampleNote? = null
     private lateinit var saveButton: Button
     private lateinit var addNoteToDb: AddNoteToDb
+    private lateinit var onBack: OnBackPressed
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.activity_add_notes,container,false)
         initializeView(view)
         addNoteToDb = context as AddNoteToDb
+        onBack = context as OnBackPressed
         return view
     }
 
@@ -40,8 +42,24 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
         saveButton.setOnClickListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                onBack.onBack()
+                true
+            } else false
+        }
+    }
+
     interface AddNoteToDb{
         fun insertNoteToDB(note: SampleNote, editText: EditText)
+    }
+
+    interface OnBackPressed{
+        fun onBack()
     }
 
     override fun onClick(v: View?) {
