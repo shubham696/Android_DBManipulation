@@ -10,6 +10,7 @@
         card_view:cardCornerRadius="5dp"
         card_view:cardUseCompatPadding="true"
         card_view:cardElevation="5dp"
+        android:padding="10dp"
         android:id="@+id/imageView">
 
         <LinearLayout
@@ -29,6 +30,7 @@
                 tools:text="Title"
                 android:ellipsize="marquee"
                 android:singleLine="true"
+                android:padding="2dp"
                 />
             <TextView
                 android:id="@+id/item_text"
@@ -36,7 +38,7 @@
                 tools:text="Content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="marquee"
+                android:ellipsize="end"
                 android:fontFamily="casual"
                 android:singleLine="true" />
         </LinearLayout>

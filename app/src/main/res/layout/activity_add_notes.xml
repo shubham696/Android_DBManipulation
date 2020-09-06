@@ -12,6 +12,7 @@
             android:inputType="text"
             android:id="@+id/et_title"
             android:hint="Title"
+            android:layout_marginTop="10dp"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -20,8 +21,9 @@
         android:layout_below="@+id/et_title"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:weightSum="10"
+        android:layout_marginTop="10dp"
         >
 
             <android.widget.EditText

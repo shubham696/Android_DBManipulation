@@ -1,7 +1,6 @@
-package com.example.sampleroomdbapp.View.activity
+package com.example.sampleroomdbapp.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -15,18 +14,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sampleroomdbapp.AppDatabase
 import com.example.sampleroomdbapp.MainApplication
-import com.example.sampleroomdbapp.Model.SampleNote
+import com.example.sampleroomdbapp.model.SampleNote
 import com.example.sampleroomdbapp.R
-import com.example.sampleroomdbapp.Util.HelperUtility
-import com.example.sampleroomdbapp.View.adapter.SavedNotesAdapter
-import com.example.sampleroomdbapp.View.fragment.AddNoteFragment
-import com.example.sampleroomdbapp.ViewModel.Factory.MyViewModelFactory
-import com.example.sampleroomdbapp.ViewModel.ShowNoteViewModel
+import com.example.sampleroomdbapp.util.HelperUtility
+import com.example.sampleroomdbapp.view.adapter.SavedNotesAdapter
+import com.example.sampleroomdbapp.view.fragment.AddNoteFragment
+import com.example.sampleroomdbapp.view.interfaces.SampleNoteInterface
+import com.example.sampleroomdbapp.viewModel.Factory.MyViewModelFactory
+import com.example.sampleroomdbapp.viewModel.ShowNoteViewModel
 import com.example.sampleroomdbapp.database.dao.DatabaseHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 
-class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapter.onLongClick, AddNoteFragment.AddNoteToDb, AddNoteFragment.OnBackPressed{
+class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapter.onLongClick, AddNoteFragment.AddNoteToDb, AddNoteFragment.OnBackPressed, SampleNoteInterface{
 
     private val TAG = "showaddednotes"
     private lateinit var floatingActionButton: FloatingActionButton
@@ -45,8 +47,8 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
         initializeViews()
 
         todoViewModel.getListOfNotes()?.observe(this, Observer { notes->
-            if(!(notes).isNullOrEmpty()){
-                Log.v(TAG,"livedata works")
+            if(notes!!.isNotEmpty()){
+                listOfNotesRecyclerView.visibility = View.VISIBLE
                 emptyMessage.visibility = View.GONE
                 adapter.setData(notes as List<SampleNote?>)
             }else{
@@ -58,10 +60,10 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
     }
 
     private fun initializeViews() {
-        floatingActionButton = findViewById(R.id.fab)
-        listOfNotesRecyclerView = findViewById(R.id.recycler_view)
-        emptyMessage = findViewById<TextView>(R.id.tv__empty)
-        addShowFragment = findViewById(R.id.addNoteFragment)
+        floatingActionButton = fab
+        listOfNotesRecyclerView = recycler_view
+        emptyMessage = tv__empty
+        addShowFragment = addNoteFragment
         dbInstance = MainApplication().getDBInstance(this)
 
         adapter = SavedNotesAdapter(this@ShowAllNotes,listOfSampleNote)
@@ -118,6 +120,26 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
 
     override fun onBack() {
         floatingActionButton.visibility = View.VISIBLE
+        supportFragmentManager.popBackStackImmediate()
+    }
+
+    override fun sampleNoteClicked(currentNote: SampleNote) {
+        addShowFragment.visibility = View.VISIBLE
+        floatingActionButton.visibility = View.GONE
+        val addNotesActivity = AddNoteFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("currentNote",currentNote)
+        addNotesActivity.arguments = bundle
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.addNoteFragment, addNotesActivity, "editNote")
+        fragmentTransaction.addToBackStack("editNote")
+        fragmentTransaction.commit()
+    }
+
+    override fun updateSampleNote(sampleNote: SampleNote, editText: EditText) {
+        todoViewModel.updateNote(sampleNote)
+        floatingActionButton.visibility = View.VISIBLE
+        HelperUtility(this).hideKeyBoard(editText)
         supportFragmentManager.popBackStackImmediate()
     }
 }

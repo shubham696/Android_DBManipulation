@@ -2,8 +2,8 @@ package com.example.sampleroomdbapp.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.sampleroomdbapp.Model.SampleNote
-import com.example.sampleroomdbapp.Util.Constants
+import com.example.sampleroomdbapp.model.SampleNote
+import com.example.sampleroomdbapp.util.Constants
 
 @Dao
 interface NoteDao{

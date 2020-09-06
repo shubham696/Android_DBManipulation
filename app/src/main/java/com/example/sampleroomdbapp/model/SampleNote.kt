@@ -1,12 +1,39 @@
-package com.example.sampleroomdbapp.Model
+package com.example.sampleroomdbapp.model
 
-import androidx.annotation.NonNull
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Todo_Note")
-data class SampleNote(@PrimaryKey  val note_id: String, @ColumnInfo(name = "note_content") val content: String, val title: String)
+data class SampleNote(@PrimaryKey  val note_id: String, @ColumnInfo(name = "note_content") val content: String, val title: String) :
+    Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!
+    ) {
+    }
+
+    override fun writeToParcel(p0: Parcel?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<SampleNote> {
+        override fun createFromParcel(parcel: Parcel): SampleNote {
+            return SampleNote(parcel)
+        }
+
+        override fun newArray(size: Int): Array<SampleNote?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 //{
 
 //    @PrimaryKey

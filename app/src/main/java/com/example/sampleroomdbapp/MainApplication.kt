@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LifecycleObserver
 import androidx.room.Room
-import com.example.sampleroomdbapp.Util.Constants
+import com.example.sampleroomdbapp.util.Constants
 
 class MainApplication : Application(), LifecycleObserver {
 

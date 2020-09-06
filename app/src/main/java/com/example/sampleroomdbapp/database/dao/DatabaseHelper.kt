@@ -2,7 +2,7 @@ package com.example.sampleroomdbapp.database.dao
 
 import androidx.lifecycle.LiveData
 import com.example.sampleroomdbapp.AppDatabase
-import com.example.sampleroomdbapp.Model.SampleNote
+import com.example.sampleroomdbapp.model.SampleNote
 
 class DatabaseHelper(private val appDatabase: AppDatabase): DatabaseInterface{
     override fun getNoteList(): LiveData<List<SampleNote>?> {
@@ -23,6 +23,10 @@ class DatabaseHelper(private val appDatabase: AppDatabase): DatabaseInterface{
 //            noteArray.add(note)
 //        }
 //        appDatabase.getNoteDao().delete(noteArray)
+    }
+
+    override fun updateNote(note: SampleNote) {
+        appDatabase.getNoteDao().update(note)
     }
 
 }

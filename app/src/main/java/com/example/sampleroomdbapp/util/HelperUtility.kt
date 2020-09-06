@@ -1,4 +1,4 @@
-package com.example.sampleroomdbapp.Util
+package com.example.sampleroomdbapp.util
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager

@@ -1,10 +1,9 @@
-package com.example.sampleroomdbapp.ViewModel
+package com.example.sampleroomdbapp.viewModel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.sampleroomdbapp.Model.SampleNote
+import com.example.sampleroomdbapp.model.SampleNote
 import com.example.sampleroomdbapp.database.dao.DatabaseHelper
-import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ShowNoteViewModel(val context: Application, private val dbHelper: DatabaseHelper) :ViewModel(){
@@ -45,6 +44,14 @@ class ShowNoteViewModel(val context: Application, private val dbHelper: Database
     fun insertNotes(sampleNote: SampleNote) {
         try {
             dbHelper.insertAll(sampleNote = sampleNote)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun updateNote(sampleNote: SampleNote){
+        try {
+            dbHelper.updateNote(sampleNote)
         }catch (e: Exception){
             e.printStackTrace()
         }
