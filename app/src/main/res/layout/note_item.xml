@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:fontFamily="@font/jio_type_bold"
+                android:fontFamily="@font/font_type_bold"
                 tools:text="Title"
                 android:ellipsize="marquee"
                 android:singleLine="true"
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/jio_type_medium"
+                android:fontFamily="@font/font_type_medium"
                 android:textColor="?attr/textColor"
                 android:singleLine="true" />
         </LinearLayout>

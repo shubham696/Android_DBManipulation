@@ -50,7 +50,7 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pre = getSharedPreferences(PrefNames.PREF_NAME, Context.MODE_PRIVATE)
-        if(!pre.getBoolean(PrefNames.DARK_THEME,true)){
+        if(pre.getBoolean(PrefNames.DARK_THEME,true)){
             setTheme(R.style.DarkTheme)
         }else{
             setTheme(R.style.WhiteTheme);

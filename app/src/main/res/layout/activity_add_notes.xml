@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="?attr/textColor"
-            android:fontFamily="@font/jio_type_bold"
+            android:fontFamily="@font/font_type_bold"
             android:textSize="@dimen/font_size_20"
             android:gravity="center"
             />
