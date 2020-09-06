@@ -1,5 +1,8 @@
 package com.example.sampleroomdbapp.view.activity
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -14,18 +17,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sampleroomdbapp.AppDatabase
 import com.example.sampleroomdbapp.MainApplication
-import com.example.sampleroomdbapp.model.SampleNote
 import com.example.sampleroomdbapp.R
+import com.example.sampleroomdbapp.database.dao.DatabaseHelper
+import com.example.sampleroomdbapp.model.SampleNote
 import com.example.sampleroomdbapp.util.HelperUtility
+import com.example.sampleroomdbapp.util.PrefNames
 import com.example.sampleroomdbapp.view.adapter.SavedNotesAdapter
 import com.example.sampleroomdbapp.view.fragment.AddNoteFragment
 import com.example.sampleroomdbapp.view.interfaces.SampleNoteInterface
 import com.example.sampleroomdbapp.viewModel.Factory.MyViewModelFactory
 import com.example.sampleroomdbapp.viewModel.ShowNoteViewModel
-import com.example.sampleroomdbapp.database.dao.DatabaseHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.header_layout.*
 
 
 class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapter.onLongClick, AddNoteFragment.AddNoteToDb, AddNoteFragment.OnBackPressed, SampleNoteInterface{
@@ -40,9 +45,16 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
     private lateinit var todoViewModel: ShowNoteViewModel
     private lateinit var notesLiveData: LiveData<List<SampleNote>>
     private lateinit var addShowFragment: FrameLayout
+    private lateinit var pre: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pre = getSharedPreferences(PrefNames.PREF_NAME, Context.MODE_PRIVATE)
+        if(!pre.getBoolean(PrefNames.DARK_THEME,true)){
+            setTheme(R.style.DarkTheme)
+        }else{
+            setTheme(R.style.WhiteTheme);
+        }
         setContentView(R.layout.activity_main)
         initializeViews()
 
@@ -64,6 +76,10 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
         listOfNotesRecyclerView = recycler_view
         emptyMessage = tv__empty
         addShowFragment = addNoteFragment
+        back_button.visibility = View.GONE
+        header_title.text = resources.getString(R.string.notes)
+        set_theme.setOnClickListener(this)
+
         dbInstance = MainApplication().getDBInstance(this)
 
         adapter = SavedNotesAdapter(this@ShowAllNotes,listOfSampleNote)
@@ -101,6 +117,19 @@ class ShowAllNotes : AppCompatActivity(), View.OnClickListener, SavedNotesAdapte
                 fragmentTransaction.replace(R.id.addNoteFragment, addNotesActivity, "addNotes")
                 fragmentTransaction.addToBackStack("addNotes")
                 fragmentTransaction.commit()
+            }
+            R.id.set_theme->{
+                if(pre.getBoolean(PrefNames.DARK_THEME,true)){
+                    pre.edit().putBoolean(PrefNames.DARK_THEME,false).apply()
+                    setTheme(R.style.WhiteTheme)
+                    finish()
+                    startActivity(Intent(this@ShowAllNotes,ShowAllNotes::class.java))
+                }else{
+                    pre.edit().putBoolean(PrefNames.DARK_THEME,true).apply()
+                    setTheme(R.style.DarkTheme)
+                    finish()
+                    startActivity(Intent(this@ShowAllNotes,ShowAllNotes::class.java))
+                }
             }
         }
     }

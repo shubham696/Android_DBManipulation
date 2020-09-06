@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/bgColor"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -14,11 +15,11 @@
         android:id="@+id/imageView">
 
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical"
             android:layout_marginBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/card_border"
             android:paddingLeft="10dp"
             android:paddingStart="10dp">
             <TextView
@@ -26,11 +27,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:fontFamily="monospace"
+                android:fontFamily="@font/jio_type_bold"
                 tools:text="Title"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:padding="2dp"
+                android:textColor="?attr/textColor"
                 />
             <TextView
                 android:id="@+id/item_text"
@@ -39,7 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="casual"
+                android:fontFamily="@font/jio_type_medium"
+                android:textColor="?attr/textColor"
                 android:singleLine="true" />
         </LinearLayout>
 

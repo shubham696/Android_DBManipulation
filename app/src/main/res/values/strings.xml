@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SampleRoomDBApp</string>
+    <string name="notes">Notes</string>
+    <string name="no_notes_found">No Notes Found, Let\'s Add Some!</string>
+    <string name="save">Save</string>
 </resources>

@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sampleroomdbapp.model.SampleNote
 import com.example.sampleroomdbapp.R
 import com.example.sampleroomdbapp.view.interfaces.SampleNoteInterface
 import kotlinx.android.synthetic.main.activity_add_notes.view.*
+import kotlinx.android.synthetic.main.header_layout.*
+import kotlinx.android.synthetic.main.header_layout.view.*
 import java.util.*
 
 
@@ -21,7 +24,7 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
     private var title: EditText? = null
     private  var content:EditText? = null
     private var sampleNote: SampleNote? = null
-    private lateinit var saveButton: Button
+    private lateinit var saveButton: TextView
     private lateinit var addNoteToDb: AddNoteToDb
     private lateinit var onBack: OnBackPressed
     private var editNote: SampleNote? = null
@@ -54,6 +57,9 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
         content = view.et_content
         saveButton = view.but_save
         saveButton.setOnClickListener(this)
+        view.back_button.setOnClickListener(this)
+        view.header_title.visibility = View.GONE
+        view.set_theme.visibility = View.GONE
 
         if(editNote != null){
             title!!.setText(editNote?.title.toString())
@@ -95,6 +101,9 @@ class AddNoteFragment: Fragment(), View.OnClickListener {
                 }else{
                     Toast.makeText(this.context,"Please Enter Title/Content",Toast.LENGTH_SHORT).show()
                 }
+            }
+            R.id.back_button->{
+                onBack.onBack()
             }
         }
     }

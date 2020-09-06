@@ -4,45 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
-    android:background="@android:color/white"
+    android:background="?attr/bgColor"
     android:orientation="vertical">
 
-        <android.widget.EditText
-            android:inputType="text"
-            android:id="@+id/et_title"
-            android:hint="Title"
-            android:layout_marginTop="10dp"
-            android:singleLine="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <include
+        layout="@layout/header_layout"
+        android:id="@+id/header_layout"
+        />
 
-    <LinearLayout
-        android:layout_below="@+id/et_title"
-        android:orientation="vertical"
+    <View
+        android:id="@+id/header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/textColor"
+        android:layout_below="@+id/header_layout"
+        android:layout_marginBottom="10dp"
+        />
+
+    <android.widget.EditText
+        android:inputType="text"
+        android:id="@+id/et_title"
+        android:hint="Title"
+        android:textColorHint="?attr/textColor"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textColor"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:paddingHorizontal="12dp"
+        android:layout_below="@+id/header_divider"
+        />
+
+
+    <android.widget.EditText
+        android:id="@+id/et_content"
+        android:hint="Content"
+        android:textColorHint="?attr/textColor"
+        android:gravity="top"
+        android:singleLine="false"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:weightSum="10"
+        android:textColor="?attr/textColor"
+        android:background="@drawable/edittext_border"
+        android:paddingTop="10dp"
         android:layout_marginTop="10dp"
+        android:paddingHorizontal="12dp"
+        android:layout_below="@+id/et_title"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
         >
 
-            <android.widget.EditText
-                android:id="@+id/et_content"
-                android:hint="Content"
-                android:gravity="top"
-                android:singleLine="false"
-                android:inputType="textMultiLine|textNoSuggestions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="8"/>
-
-        <Button
+        <TextView
             android:id="@+id/but_save"
-            android:text="Save"
+            android:text="@string/save"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"/>
+            android:textColor="?attr/textColor"
+            android:fontFamily="@font/jio_type_bold"
+            android:textSize="@dimen/font_size_20"
+            android:gravity="center"
+            />
 
     </LinearLayout>
 

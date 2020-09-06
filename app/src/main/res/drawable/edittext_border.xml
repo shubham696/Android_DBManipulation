@@ -1,0 +1,33 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:state_selected="false">
+<layer-list>
+
+    <item  android:bottom="-1dp"
+        android:left="-2dp"
+        android:right="-2dp"
+        android:top="-2dp">
+        <shape android:shape="rectangle" >
+            <stroke
+                android:width="2dp"
+                android:color="?attr/inactiveBorderColor" />
+        </shape>
+    </item>
+</layer-list>
+    </item>
+    <item android:state_enabled="true">
+        <layer-list>
+
+            <item  android:bottom="-1dp"
+                android:left="-2dp"
+                android:right="-2dp"
+                android:top="-2dp">
+                <shape android:shape="rectangle" >
+                    <stroke
+                        android:width="2dp"
+                        android:color="?attr/activeBorderColor" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+</selector>
